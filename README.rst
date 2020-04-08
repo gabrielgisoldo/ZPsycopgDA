@@ -50,9 +50,7 @@ approximative. Please contact us if you want to improve them.
   then symlink or copy the ``ZPsycopgDA`` directory from the installed
   location to the ``Products`` directory of your Zope instance.
   
-  Detailed Installation for Zope 4.0
-----------------------------------
-
-$ ./bin/pip install git+https://github.com/psycopg/ZPsycopgDA.git
-$ cd lib/python2.7/site-packages/Products
-$ ln -s /path/to/virtualenv/lib/python2.7/site-packages/ZPsycopgDA .
+- Detailed Installation for Zope 4.0::
+    - $ ./bin/pip install git+https://github.com/psycopg/ZPsycopgDA.git
+    - $ cd lib/python3.7/site-packages/Products
+    - $ ln -s /path/to/virtualenv/lib/python3.7/site-packages/ZPsycopgDA .
