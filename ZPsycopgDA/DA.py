@@ -22,21 +22,12 @@ import re
 import Acquisition
 import Shared.DC.ZRDB.Connection
 
-from db import DB
-from Globals import HTMLFile
+from Products.ZPsycopgDA.db import DB
+from App.special_dtml import HTMLFile
 from ExtensionClass import Base
 from DateTime import DateTime
 
-# ImageFile is deprecated in Zope >= 2.9
-try:
-    from App.ImageFile import ImageFile
-except ImportError:
-    # Zope < 2.9.  If PIL's installed with a .pth file, we're probably
-    # hosed.
-    from ImageFile import ImageFile
-
 # import psycopg and functions/singletons needed for date/time conversions
-
 import psycopg2
 from psycopg2 import NUMBER, STRING, ROWID, DATETIME
 from psycopg2.extensions import INTEGER, FLOAT, BOOLEAN, DATE
@@ -122,7 +113,8 @@ class Connection(Shared.DC.ZRDB.Connection.Connection):
 
         # TODO: let the psycopg exception propagate, or not?
         self._v_database_connection = dbf(
-            self.connection_string, self.tilevel, self.get_type_casts(), self.encoding)
+            self.connection_string, self.tilevel, self.get_type_casts(),
+            self.encoding)
         self._v_database_connection.open()
         self._v_connected = DateTime()
 
@@ -210,11 +202,11 @@ __ac_permissions__ = (
 
 # add icons
 
-misc_ = {'conn': ImageFile('icons/DBAdapterFolder_icon.gif', globals())}
+misc_ = {'conn': 'icons/DBAdapterFolder_icon.gif'}
 
 for icon in ('table', 'view', 'stable', 'what', 'field', 'text', 'bin',
              'int', 'float', 'date', 'time', 'datetime'):
-    misc_[icon] = ImageFile('icons/%s.gif' % icon, globals())
+    misc_[icon] = 'icons/%s.gif' % icon
 
 
 ## zope-specific psycopg typecasters ##
@@ -269,6 +261,7 @@ class TableBrowserCollection(Acquisition.Implicit):
 
 
 class Browser(Base):
+
     def __getattr__(self, name):
         try:
             return self._d[name]
@@ -277,6 +270,7 @@ class Browser(Base):
 
 
 class values:
+
     def len(self):
         return 1
 
@@ -330,14 +324,14 @@ class TableBrowser(Browser, Acquisition.Implicit):
 
     @staticmethod
     def vartype(inVar):
-        "Get a type name for a variable suitable for use with dtml-sqlvar"
+        """Get a type name for a variable suitable for use with dtml-sqlvar"""
         outVar = type(inVar)
         if outVar == 'str':
             outVar = 'string'
         return outVar
 
     def manage_buildInput(self, id, source, default, REQUEST=None):
-        "Create a database method for an input form"
+        """Create a database method for an input form"""
         args = []
         values = []
         names = []
