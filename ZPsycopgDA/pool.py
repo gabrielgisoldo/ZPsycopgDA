@@ -142,7 +142,8 @@ class PersistentConnectionPool(AbstractConnectionPool):
         try:
             import thread
         except ImportError:
-            import _thread
+            import _thread as thread
+
         self.__thread = thread
 
     def getconn(self):
