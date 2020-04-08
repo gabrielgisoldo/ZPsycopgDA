@@ -21,10 +21,9 @@ __version__ = '2.4.7'
 import Products.ZPsycopgDA.DA as DA
 
 
-def initialize(context):
+def initialize(registrar):
     context.registerClass(
         DA.Connection,
         permission='Add Z Psycopg 2 Database Connections',
         constructors=(DA.manage_addZPsycopgConnectionForm,
-                      DA.manage_addZPsycopgConnection),
-        icon='icons/DBAdapterFolder_icon.gif')
+                      DA.manage_addZPsycopgConnection))

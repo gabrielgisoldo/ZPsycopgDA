@@ -61,7 +61,7 @@ class Connection(Shared.DC.ZRDB.Connection.Connection):
     id = 'Psycopg2_database_connection'
     database_type = 'Psycopg2'
     meta_type = title = 'Z Psycopg 2 Database Connection'
-    icon = 'misc_/conn'
+    zmi_icon = "fas fa-database"
 
     def __init__(self, id, title, connection_string,
                  zdatetime, check=None, tilevel=DEFAULT_TILEVEL,
@@ -199,14 +199,6 @@ folder_methods = {
 __ac_permissions__ = (
     ('Add Z Psycopg Database Connections',
      ('manage_addZPsycopgConnectionForm', 'manage_addZPsycopgConnection')),)
-
-# add icons
-
-misc_ = {'conn': 'icons/DBAdapterFolder_icon.gif'}
-
-for icon in ('table', 'view', 'stable', 'what', 'field', 'text', 'bin',
-             'int', 'float', 'date', 'time', 'datetime'):
-    misc_[icon] = 'icons/%s.gif' % icon
 
 
 ## zope-specific psycopg typecasters ##
