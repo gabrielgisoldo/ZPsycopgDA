@@ -139,10 +139,7 @@ class PersistentConnectionPool(AbstractConnectionPool):
 
         # we we'll need the thread module, to determine thread ids, so we
         # import it here and copy it in an instance variable
-        try:
-            import thread
-        except ImportError:
-            import _thread as thread
+        import _thread as thread
 
         self.__thread = thread
 
