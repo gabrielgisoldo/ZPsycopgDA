@@ -34,7 +34,7 @@ setup(
     classifiers=[
         "Development Status :: 5 - Production/Stable",
         "Programming Language :: Python",
-        "Framework :: Zope2",
+        "Framework :: Zope4",
         "License :: OSI Approved :: GNU Library or Lesser General Public License (LGPL)",
         "Topic :: Database",
     ],
