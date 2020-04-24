@@ -22,7 +22,7 @@ import re
 import Acquisition
 import Shared.DC.ZRDB.Connection
 
-from Products.ZPsycopgDA.db import DB
+from .db import DB
 from App.special_dtml import HTMLFile
 from ExtensionClass import Base
 from DateTime import DateTime

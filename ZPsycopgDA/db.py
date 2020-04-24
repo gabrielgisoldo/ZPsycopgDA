@@ -20,7 +20,7 @@ from Shared.DC.ZRDB import dbi_db
 
 from ZODB.POSException import ConflictError
 
-import Products.ZPsycopgDA.pool as pool
+from . import pool
 
 import psycopg2
 from psycopg2.extensions import INTEGER, LONGINTEGER, BOOLEAN, DATE, TIME
