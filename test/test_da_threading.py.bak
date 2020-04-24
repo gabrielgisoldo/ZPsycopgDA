@@ -9,9 +9,9 @@ from Products.ZPsycopgDA.DA import ZDATETIME
 from Products.ZPsycopgDA.db import DB
 import threading
 
-from . import testconfig
+import testconfig
 
-from .testutils import unittest
+from testutils import unittest
 
 class DaThreadingTests(unittest.TestCase):
     def test_threading(self):
@@ -44,7 +44,7 @@ class DaThreadingTests(unittest.TestCase):
             t1.join()
             t2.join()
 
-            self.assertTrue(not failures, failures)
+            self.assert_(not failures, failures)
         finally:
             conn1.close()
 

@@ -97,54 +97,54 @@ class TestPsycopg2TypeConversion(TestCase):
         from datetime import date
         def c(s):
             return _conv_date(s, None)
-        self.assertEqual(c(''), None)
-        self.assertEqual(c('2001-03-02'), date(2001, 3, 2))
+        self.assertEquals(c(''), None)
+        self.assertEquals(c('2001-03-02'), date(2001, 3, 2))
 
     def test_conv_time(self):
         from psycopg2da.adapter import _conv_time
         from datetime import time
         def c(s):
             return _conv_time(s, None)
-        self.assertEqual(c(''), None)
-        self.assertEqual(c('23:17:57'), time(23, 17, 57))
-        self.assertEqual(c('23:17:57.037'), time(23, 17, 57, 37000))
+        self.assertEquals(c(''), None)
+        self.assertEquals(c('23:17:57'), time(23, 17, 57))
+        self.assertEquals(c('23:17:57.037'), time(23, 17, 57, 37000))
 
     def test_conv_timetz(self):
         from psycopg2da.adapter import _conv_timetz
         from datetime import time
         def c(s):
             return _conv_timetz(s, None)
-        self.assertEqual(c(''), None)
-        self.assertEqual(c('12:44:01+01:00'), time(12, 44, 0o1, 0, TZStub(1,0)))
-        self.assertEqual(c('12:44:01.037-00:30'), time(12, 44, 0o1, 37000, TZStub(0,-30)))
+        self.assertEquals(c(''), None)
+        self.assertEquals(c('12:44:01+01:00'), time(12, 44, 01, 0, TZStub(1,0)))
+        self.assertEquals(c('12:44:01.037-00:30'), time(12, 44, 01, 37000, TZStub(0,-30)))
 
     def test_conv_timestamp(self):
         from psycopg2da.adapter import _conv_timestamp
         from datetime import datetime
         def c(s):
             return _conv_timestamp(s, None)
-        self.assertEqual(c(''), None)
-        self.assertEqual(c('2001-03-02 12:44:01'),
-                          datetime(2001, 3, 2, 12, 44, 0o1))
-        self.assertEqual(c('2001-03-02 12:44:01.037'),
-                          datetime(2001, 3, 2, 12, 44, 0o1, 37000))
-        self.assertEqual(c('2001-03-02 12:44:01.000001'),
-                          datetime(2001, 3, 2, 12, 44, 0o1, 1))
+        self.assertEquals(c(''), None)
+        self.assertEquals(c('2001-03-02 12:44:01'),
+                          datetime(2001, 3, 2, 12, 44, 01))
+        self.assertEquals(c('2001-03-02 12:44:01.037'),
+                          datetime(2001, 3, 2, 12, 44, 01, 37000))
+        self.assertEquals(c('2001-03-02 12:44:01.000001'),
+                          datetime(2001, 3, 2, 12, 44, 01, 1))
 
     def test_conv_timestamptz(self):
         from psycopg2da.adapter import _conv_timestamptz
         from datetime import datetime
         def c(s):
             return _conv_timestamptz(s, None)
-        self.assertEqual(c(''), None)
+        self.assertEquals(c(''), None)
 
-        self.assertEqual(c('2001-03-02 12:44:01+01:00'),
-                  datetime(2001, 3, 2, 12, 44, 0o1, 0, TZStub(1,0)))
-        self.assertEqual(c('2001-03-02 12:44:01.037-00:30'),
-                  datetime(2001, 3, 2, 12, 44, 0o1, 37000, TZStub(0,-30)))
-        self.assertEqual(c('2001-03-02 12:44:01.000001+12:00'),
-                  datetime(2001, 3, 2, 12, 44, 0o1, 1, TZStub(12,0)))
-        self.assertEqual(c('2001-06-25 12:14:00-07'),
+        self.assertEquals(c('2001-03-02 12:44:01+01:00'),
+                  datetime(2001, 3, 2, 12, 44, 01, 0, TZStub(1,0)))
+        self.assertEquals(c('2001-03-02 12:44:01.037-00:30'),
+                  datetime(2001, 3, 2, 12, 44, 01, 37000, TZStub(0,-30)))
+        self.assertEquals(c('2001-03-02 12:44:01.000001+12:00'),
+                  datetime(2001, 3, 2, 12, 44, 01, 1, TZStub(12,0)))
+        self.assertEquals(c('2001-06-25 12:14:00-07'),
                   datetime(2001, 6, 25, 12, 14, 00, 0, TZStub(-7,0)))
 
     def test_conv_interval(self):
@@ -153,26 +153,26 @@ class TestPsycopg2TypeConversion(TestCase):
         def c(s):
             return _conv_interval(s, None)
 
-        self.assertEqual(c(''), None)
-        self.assertEqual(c('01:00'), timedelta(hours=1))
-        self.assertEqual(c('00:15'), timedelta(minutes=15))
-        self.assertEqual(c('00:00:47'), timedelta(seconds=47))
-        self.assertEqual(c('00:00:00.037'), timedelta(microseconds=37000))
-        self.assertEqual(c('00:00:00.111111'), timedelta(microseconds=111111))
-        self.assertEqual(c('1 day'), timedelta(days=1))
-        self.assertEqual(c('2 days'), timedelta(days=2))
-        self.assertEqual(c('374 days'), timedelta(days=374))
-        self.assertEqual(c('2 days 03:20:15.123456'),
+        self.assertEquals(c(''), None)
+        self.assertEquals(c('01:00'), timedelta(hours=1))
+        self.assertEquals(c('00:15'), timedelta(minutes=15))
+        self.assertEquals(c('00:00:47'), timedelta(seconds=47))
+        self.assertEquals(c('00:00:00.037'), timedelta(microseconds=37000))
+        self.assertEquals(c('00:00:00.111111'), timedelta(microseconds=111111))
+        self.assertEquals(c('1 day'), timedelta(days=1))
+        self.assertEquals(c('2 days'), timedelta(days=2))
+        self.assertEquals(c('374 days'), timedelta(days=374))
+        self.assertEquals(c('2 days 03:20:15.123456'),
                           timedelta(days=2, hours=3, minutes=20,
                                     seconds=15, microseconds=123456))
         # XXX There's a problem with years and months.  Currently timedelta
         # cannot represent them accurately
-        self.assertEqual(c('1 month'), '1 month')
-        self.assertEqual(c('2 months'), '2 months')
-        self.assertEqual(c('1 mon'), '1 mon')
-        self.assertEqual(c('2 mons'), '2 mons')
-        self.assertEqual(c('1 year'), '1 year')
-        self.assertEqual(c('3 years'), '3 years')
+        self.assertEquals(c('1 month'), '1 month')
+        self.assertEquals(c('2 months'), '2 months')
+        self.assertEquals(c('1 mon'), '1 mon')
+        self.assertEquals(c('2 mons'), '2 mons')
+        self.assertEquals(c('1 year'), '1 year')
+        self.assertEquals(c('3 years'), '3 years')
         # Later we might be able to use
         ## self.assertEquals(c('1 month'), timedelta(months=1))
         ## self.assertEquals(c('2 months'), timedelta(months=2))
@@ -188,11 +188,11 @@ class TestPsycopg2TypeConversion(TestCase):
         _conv_string = _get_string_conv("utf-8")
         def c(s):
             return _conv_string(s, None)
-        self.assertEqual(c(None), None)
-        self.assertEqual(c(''), '')
-        self.assertEqual(c('c'), 'c')
-        self.assertEqual(c('\xc3\x82\xc2\xa2'), '\xc2\xa2')
-        self.assertEqual(c('c\xc3\x82\xc2\xa2'), 'c\xc2\xa2')
+        self.assertEquals(c(None), None)
+        self.assertEquals(c(''), u'')
+        self.assertEquals(c('c'), u'c')
+        self.assertEquals(c('\xc3\x82\xc2\xa2'), u'\xc2\xa2')
+        self.assertEquals(c('c\xc3\x82\xc2\xa2'), u'c\xc2\xa2')
 
 class TestPsycopg2Adapter(TestCase):
 
@@ -211,7 +211,7 @@ class TestPsycopg2Adapter(TestCase):
         c = a._connection_factory()
         args = self.psycopg2_stub.last_connection_string.split()
         args.sort()
-        self.assertEqual(args, ['dbname=dbname', 'host=hostname',
+        self.assertEquals(args, ['dbname=dbname', 'host=hostname',
                                  'password=password', 'port=port',
                                  'user=username'])
 
@@ -230,7 +230,7 @@ class TestPsycopg2Adapter(TestCase):
                           % (typename, typeid, typename))
             else:
                 result_name = getattr(result, 'name', 'None')
-                self.assertEqual(result, getattr(adapter, typename),
+                self.assertEquals(result, getattr(adapter, typename),
                               "did not register %s (%d): got %s, not Z%s"
                               % (typename, typeid, result_name, typename))
 
@@ -246,11 +246,11 @@ class TestISODateTime(TestCase):
     #   http://www.w3.org/TR/NOTE-datetime
     #   http://www.ietf.org/rfc/rfc3339.txt
 
-    basic_dates     = (('20020304',   (2002, 0o3, 0o4)),
-                       ('20000229',   (2000, 0o2, 29)))
+    basic_dates     = (('20020304',   (2002, 03, 04)),
+                       ('20000229',   (2000, 02, 29)))
 
-    extended_dates  = (('2002-03-04', (2002, 0o3, 0o4)),
-                       ('2000-02-29', (2000, 0o2, 29)))
+    extended_dates  = (('2002-03-04', (2002, 03, 04)),
+                       ('2000-02-29', (2000, 02, 29)))
 
     basic_times     = (('12',         (12, 0, 0)),
                        ('1234',       (12, 34, 0)),

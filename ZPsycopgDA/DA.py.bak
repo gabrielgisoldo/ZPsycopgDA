@@ -348,7 +348,7 @@ class TableBrowser(Browser, Acquisition.Implicit):
                 values.append("<dtml-sqlvar %s type=%s>'" %
                               (n, self.vartype(t)))
             else:
-                if isinstance(t, str):
+                if isinstance(t, basestring):
                     if d.find("\'") >= 0:
                         d = "''".join(d.split("\'"))
                     values.append("'%s'" % d)

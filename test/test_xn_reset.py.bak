@@ -4,8 +4,8 @@
 
 from Products.ZPsycopgDA.db import DB
 
-from . import testconfig
-from .testutils import unittest
+import testconfig
+from testutils import unittest
 
 class TransactionResetTests(unittest.TestCase):
     def test_issue_142(self):
@@ -20,7 +20,7 @@ class TransactionResetTests(unittest.TestCase):
             cur2.close()
             cur3 = conn.getcursor()
             cur3.execute("select * from test142")
-            self.assertEqual(cur3.fetchone(), (1,))
+            self.assertEquals(cur3.fetchone(), (1,))
             cur3.close()
         finally:
             conn.close()
